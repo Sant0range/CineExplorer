@@ -1,0 +1,44 @@
+<!-- movie-card.component.html -->
+<!-- Tarjeta de película usando clases de Bootstrap -->
+<div class="card shadow-sm h-100">
+  <!-- shadow-sm: sombra suave -->
+  <!-- h-100: altura 100% (para que todas las tarjetas tengan la misma altura) -->
+
+  <!-- Imagen del póster -->
+  <!-- Concatenamos la URL base de TMDB con el poster_path -->
+  <img
+    [src]="'https://image.tmdb.org/t/p/w500' + pelicula.poster_path"
+    [alt]="pelicula.title"
+    class="card-img-top">
+  <!-- card-img-top: imagen en la parte superior de la tarjeta -->
+
+  <!-- Cuerpo de la tarjeta -->
+  <div class="card-body d-flex flex-column">
+    <!-- d-flex flex-column: layout flexible vertical -->
+
+    <!-- Título de la película -->
+    <h5 class="card-title">{{ pelicula.title }}</h5>
+
+    <!-- Puntuación con estrella -->
+    <p class="text-muted mb-2">
+      <!-- text-muted: color gris -->
+      <!-- mb-2: margin-bottom pequeño -->
+      ⭐ {{ pelicula.vote_average }} / 10
+    </p>
+
+    <!-- Sinopsis truncada -->
+    <!-- Usamos slice para mostrar solo los primeros 120 caracteres -->
+    <p class="card-text flex-grow-1">
+      <!-- flex-grow-1: ocupa el espacio disponible (empuja el botón abajo) -->
+      {{ pelicula.overview.length > 120
+        ? pelicula.overview.slice(0, 120) + '...'
+        : pelicula.overview }}
+    </p>
+
+    <!-- Botón de ver detalle -->
+    <button class="btn btn-outline-primary mt-auto">
+      <!-- mt-auto: margin-top automático (se pega al fondo) -->
+      Ver detalle
+    </button>
+  </div>
+</div>
