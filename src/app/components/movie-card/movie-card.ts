@@ -1,7 +1,5 @@
-// movie-card.component.ts
-// Componente que muestra una tarjeta con la información de una película
-import { Component } from '@angular/core';
-// Importar la interfaz Movie que creamos en el capítulo 1
+﻿
+import { Component, input, output } from '@angular/core';
 import { Movie } from '../../models/movie';
 
 @Component({
@@ -12,16 +10,19 @@ import { Movie } from '../../models/movie';
   styleUrls: ['./movie-card.scss']
 })
 export class MovieCardComponent {
-  // Por ahora usamos datos de ejemplo hardcodeados
-  // En el próximo capítulo recibiremos los datos del componente padre con @Input
-  pelicula: Movie = {
-    id: 550,
-    title: 'Fight Club',
-    overview: 'Un oficinista insomne y un fabricante de jabón forman un club de pelea clandestino que evoluciona hacia algo mucho más peligroso.',
-    poster_path: '/pB8BM7pdSp6B6Ih7QI4S2t0POoD.jpg',
-    backdrop_path: '/hZkgoQYus5dXo3H8T7Uef6DNknx.jpg',
-    vote_average: 8.4,
-    release_date: '1999-10-15',
-    genre_ids: [18, 53]
-  };
+  // Entrada: datos que recibe del padre (signals)
+  movie = input.required<Movie>();
+  esFavorita = input<boolean>(false);
+
+  // Salida: evento que emite hacia el padre
+  // output<Movie>() crea un OutputEmitterRef que emite objetos Movie
+  // Reemplaza a @Output() toggleFavorito = new EventEmitter<Movie>()
+  toggleFavorito = output<Movie>();
+
+  // Método que se ejecuta al hacer click en el botón de favorito
+  onToggleFavorito(): void {
+    // .emit() envía el evento al padre con la película como dato
+    this.toggleFavorito.emit(this.movie());
+    // Notar: this.movie() con paréntesis porque es un signal
+  }
 }
