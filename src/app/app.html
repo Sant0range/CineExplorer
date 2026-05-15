@@ -1,20 +1,11 @@
-﻿<div class="container py-4">
-  <h1 class="display-5 mb-1">🎬 CineExplorer</h1>
-  <p class="lead text-muted mb-4">Explora las mejores películas del mundo</p>
+﻿<!-- app.html -->
+<!-- Layout principal de la app -->
 
-  <div class="row g-4">
-    @for (movie of peliculas; track movie.id) {
-      <div class="col-sm-6 col-md-4">
-        <!-- [movie]="movie" pasa la película al hijo (property binding a input()) -->
-        <!-- [esFavorita] pasa si esta película está en favoritos -->
-        <!-- (toggleFavorito) escucha el evento emitido por el hijo -->
-        <app-movie-card
-          [movie]="movie"
-          [esFavorita]="esFavorita(movie.id)"
-          (toggleFavorito)="toggleFavorito($event)" />
-      </div>
-    } @empty {
-      <p class="text-muted">No hay películas para mostrar</p>
-    }
-  </div>
-</div>
+<!-- Navbar (siempre visible) -->
+<app-navbar />
+
+<!-- RouterOutlet: aquí Angular renderiza el componente de la ruta actual -->
+<!-- Cuando la URL cambia, Angular reemplaza el contenido dentro de router-outlet -->
+<main class="container py-4">
+  <router-outlet />
+</main>

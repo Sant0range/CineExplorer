@@ -1,0 +1,48 @@
+<!-- navbar.html -->
+<!-- Navbar responsive de Bootstrap -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <!-- navbar-dark: texto blanco -->
+  <!-- bg-dark: fondo oscuro -->
+
+  <div class="container">
+    <!-- Logo/nombre de la app como link al inicio -->
+    <!-- routerLink="/" navega a la ruta raíz sin recargar la página -->
+    <a class="navbar-brand" routerLink="/">🎬 CineExplorer</a>
+
+    <!-- Botón hamburguesa para móviles -->
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links de navegación -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <!-- ms-auto: empuja los links a la derecha -->
+
+        <li class="nav-item">
+          <!-- routerLink: navega a la ruta especificada -->
+          <!-- routerLinkActive="active": agrega la clase "active" cuando la ruta coincide -->
+          <!-- [routerLinkActiveOptions]="{ exact: true }": solo coincide con la ruta exacta -->
+          <a class="nav-link" routerLink="/"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{ exact: true }">
+            Inicio
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/favorites"
+             routerLinkActive="active">
+            <!-- Mostrar badge con cantidad de favoritas -->
+            Favoritos
+            @if (cantidadFavoritas > 0) {
+              <span class="badge bg-danger ms-1">{{ cantidadFavoritas }}</span>
+            }
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

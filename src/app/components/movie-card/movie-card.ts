@@ -1,15 +1,16 @@
 ﻿
-import { Component, input, output } from '@angular/core';
+import { Component, input, output } from'@angular/core';
 import { Movie } from '../../models/movie';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-movie-card',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './movie-card.html',
   styleUrls: ['./movie-card.scss']
 })
-export class MovieCardComponent {
+export class MovieCard {
   // Entrada: datos que recibe del padre (signals)
   movie = input.required<Movie>();
   esFavorita = input<boolean>(false);

@@ -1,0 +1,24 @@
+<!-- favorites.html -->
+<h2 class="mb-4">❤️ Mis favoritas</h2>
+
+@if (favoritas.length > 0) {
+  <div class="row g-4">
+    @for (movie of favoritas; track movie.id) {
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <app-movie-card
+          [movie]="movie"
+          [esFavorita]="true"
+          (toggleFavorito)="toggleFavorito($event)" />
+      </div>
+    }
+  </div>
+} @else {
+  <!-- Estado vacío cuando no hay favoritas -->
+  <div class="text-center py-5">
+    <p class="display-1">🎬</p>
+    <h4 class="text-muted">No tienes películas favoritas</h4>
+    <p class="text-muted">Explora películas y marca las que te gusten con ❤️</p>
+    <!-- routerLink para navegar al inicio -->
+    <a routerLink="/" class="btn btn-primary">Explorar películas</a>
+  </div>
+}

@@ -20,9 +20,10 @@
 
   <!-- Botón de favorito: cambia según el estado -->
     <div class="d-flex gap-2 mt-auto">
-      <button class="btn btn-outline-primary flex-grow-1">
+      <a [routerLink]="['/movie', 'movie().id']"
+        class="btn btn-outline-primary flex-grow-1">
         Ver detalle
-      </button>
+      </a>
       <button
         class="btn"
         [class.btn-danger]="esFavorita()"
