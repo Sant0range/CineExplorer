@@ -5,11 +5,13 @@ import { UpperCasePipe } from '@angular/common';
 import { TmdbService } from '../../services/tmdb';
 import { FavoritesService } from '../../services/favorites';
 import { MovieDetail as MovieDetailData, Credits } from '../../models/movie';
+import { ReviewForm } from './review-form/review-form';
+
 
 @Component({
   selector: 'app-movie-detail',
   standalone: true,
-  imports: [RouterLink, UpperCasePipe],
+  imports: [RouterLink, UpperCasePipe, ReviewForm],
   templateUrl: './movie-detail.html'
 })
 
