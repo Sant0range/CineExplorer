@@ -1,0 +1,24 @@
+<!-- search-results.html -->
+<h2 class="mb-4">🔍 Resultados para "{{ termino }}"</h2>
+
+@if (cargando) {
+  <div class="text-center py-5">
+    <div class="spinner-border text-primary"></div>
+  </div>
+} @else if (resultados.length === 0 && termino) {
+  <div class="text-center py-5">
+    <p class="display-1">🎬</p>
+    <h4 class="text-muted">No se encontraron resultados para "{{ termino }}"</h4>
+  </div>
+} @else {
+  <div class="row g-4">
+    @for (movie of resultados; track movie.id) {
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <app-movie-card
+          [movie]="movie"
+          [esFavorita]="esFavorita(movie.id)"
+          (toggleFavorito)="toggleFavorito($event)" />
+      </div>
+    }
+  </div>
+}

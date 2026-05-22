@@ -1,7 +1,106 @@
 <!-- movie-detail.html -->
-<!-- Por ahora solo mostramos el ID. En el capítulo 6 cargaremos datos reales -->
-<div class="text-center py-5">
-  <h2>Detalle de película #{{ movieId }}</h2>
-  <p class="text-muted">Los datos reales se cargarán cuando conectemos la API (capítulo 6)</p>
+<!-- Página de detalle con datos reales de la API -->
+
+<!-- Estado: cargando -->
+@if (cargando) {
+  <div class="text-center py-5">
+    <div class="spinner-border text-primary"></div>
+  </div>
+}
+
+<!-- Estado: error -->
+@if (error) {
+  <div class="alert alert-danger">{{ error }}</div>
   <a routerLink="/" class="btn btn-outline-primary">← Volver al inicio</a>
-</div>
+}
+
+<!-- Estado: datos cargados -->
+@if (pelicula && !cargando) {
+  <!-- Imagen de fondo -->
+  <div class="position-relative mb-4" style="height: 300px; overflow: hidden;">
+    <img [src]="'https://image.tmdb.org/t/p/original' + pelicula.backdrop_path"
+         [alt]="pelicula.title"
+         class="w-100 h-100"
+         style="object-fit: cover; filter: brightness(0.5);">
+    <!-- Título sobre la imagen -->
+    <div class="position-absolute bottom-0 start-0 p-4 text-white">
+      <h1>{{ pelicula.title }}</h1>
+      @if (pelicula.tagline) {
+        <p class="lead fst-italic">{{ pelicula.tagline }}</p>
+      }
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Columna izquierda: póster -->
+    <div class="col-md-4 mb-4">
+      <img [src]="'https://image.tmdb.org/t/p/w500' + pelicula.poster_path"
+           [alt]="pelicula.title"
+           class="img-fluid rounded shadow">
+      <!-- Botón de favorito -->
+      <button class="btn w-100 mt-3"
+              [class.btn-danger]="esFavorita"
+              [class.btn-outline-danger]="!esFavorita"
+              (click)="toggleFavorito()">
+        {{ esFavorita ? '❤️ Quitar de favoritos' : '🤍 Agregar a favoritos' }}
+      </button>
+    </div>
+
+    <!-- Columna derecha: información -->
+    <div class="col-md-8">
+      <h3>Sinopsis</h3>
+      <p>{{ pelicula.overview }}</p>
+
+      <!-- Datos técnicos -->
+      <div class="row mb-3">
+        <div class="col-6 col-md-3">
+          <strong>Puntuación</strong>
+          <p>⭐ {{ pelicula.vote_average }} / 10</p>
+        </div>
+        <div class="col-6 col-md-3">
+          <strong>Duración</strong>
+          <p>{{ pelicula.runtime }} min</p>
+        </div>
+        <div class="col-6 col-md-3">
+          <strong>Estreno</strong>
+          <p>{{ pelicula.release_date }}</p>
+        </div>
+        <div class="col-6 col-md-3">
+          <strong>Idioma</strong>
+          <p>{{ pelicula.original_language | uppercase }}</p>
+        </div>
+      </div>
+
+      <!-- Géneros -->
+      <div class="mb-3">
+        <strong>Géneros: </strong>
+        @for (genre of pelicula.genres; track genre.id) {
+          <span class="badge bg-secondary me-1">{{ genre.name }}</span>
+        }
+      </div>
+
+      <!-- Reparto -->
+      @if (creditos && creditos.cast.length > 0) {
+        <h4 class="mt-4">Reparto principal</h4>
+        <div class="row g-3">
+          <!-- Mostrar los primeros 6 actores -->
+          @for (actor of creditos.cast.slice(0, 6); track actor.id) {
+            <div class="col-4 col-md-2 text-center">
+              @if (actor.profile_path) {
+                <img [src]="'https://image.tmdb.org/t/p/w200' + actor.profile_path"
+                     [alt]="actor.name"
+                     class="rounded-circle mb-1"
+                     style="width: 80px; height: 80px; object-fit: cover;">
+              }
+              <small class="d-block">{{ actor.name }}</small>
+              <small class="text-muted">{{ actor.character }}</small>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Botón volver -->
+  <a routerLink="/" class="btn btn-outline-primary mt-4">← Volver al inicio</a>
+}

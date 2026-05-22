@@ -1,16 +1,41 @@
 <!-- home.html -->
-<!-- Página principal con grid de películas -->
+<!-- Manejo de 3 estados: cargando, error, datos -->
 <h2 class="mb-4">🔥 Películas populares</h2>
 
-<div class="row g-4">
-  @for (movie of peliculas; track movie.id) {
-    <div class="col-sm-6 col-md-4 col-lg-3">
-      <app-movie-card
-        [movie]="movie"
-        [esFavorita]="esFavorita(movie.id)"
-        (toggleFavorito)="toggleFavorito($event)" />
+<!-- Estado: cargando -->
+@if (cargando) {
+  <div class="text-center py-5">
+    <!-- Spinner de Bootstrap -->
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
     </div>
-  } @empty {
-    <p class="text-muted">No hay películas para mostrar</p>
-  }
-</div>
+    <p class="text-muted mt-2">Cargando películas...</p>
+  </div>
+}
+
+<!-- Estado: error -->
+@if (error) {
+  <div class="alert alert-danger" role="alert">
+    <!-- alert-danger: alerta roja de Bootstrap -->
+    {{ error }}
+    <button class="btn btn-outline-danger btn-sm ms-2" (click)="cargarPeliculas()">
+      Reintentar
+    </button>
+  </div>
+}
+
+<!-- Estado: datos cargados -->
+@if (!cargando && !error) {
+  <div class="row g-4">
+    @for (movie of peliculas; track movie.id) {
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <app-movie-card
+          [movie]="movie"
+          [esFavorita]="esFavorita(movie.id)"
+          (toggleFavorito)="toggleFavorito($event)" />
+      </div>
+    } @empty {
+      <p class="text-muted">No se encontraron películas</p>
+    }
+  </div>
+}

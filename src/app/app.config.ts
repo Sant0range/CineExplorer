@@ -1,12 +1,16 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+﻿// app.config.ts
+// Configuración global de la aplicación
+import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
+// provideHttpClient habilita HttpClient en toda la app
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { apiKeyInterceptor } from './core/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideRouter(routes), provideClientHydration(withEventReplay())
+    provideRouter(routes),
+    // withInterceptors registra los interceptores
+    provideHttpClient(withInterceptors([apiKeyInterceptor]))
   ]
 };
