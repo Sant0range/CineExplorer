@@ -43,6 +43,15 @@
           </a>
         </li>
       </ul>
+      <!-- Agregar dentro del navbar, después de los links -->
+      <form class="d-flex ms-auto" role="search">
+        <input
+          [formControl]="searchControl"
+          class="form-control me-2"
+          type="search"
+          placeholder="Buscar películas..."
+          aria-label="Buscar">
+      </form>
     </div>
   </div>
 </nav>

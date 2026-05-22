@@ -20,6 +20,12 @@ export const routes: Routes = [
       import('./features/movie-detail/movie-detail')
         .then(m => m.MovieDetail)
   },
+  {
+    path: 'search',
+    loadComponent: () =>
+      import('./features/search-results/search-results')
+        .then(m => m.SearchResults)
+  },
 
  
   // Ruta de favoritos

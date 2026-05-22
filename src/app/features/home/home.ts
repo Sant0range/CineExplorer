@@ -33,6 +33,8 @@ export class Home implements OnInit {
     this.cargarPeliculas();
   }
 
+  
+
   // Cargar películas populares de la API
   cargarPeliculas(): void {
     this.cargando = true;   // mostrar spinner
