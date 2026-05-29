@@ -2,13 +2,17 @@
 import { Component, input, output } from'@angular/core';
 import { Movie } from '../../models/movie';
 import { RouterLink } from '@angular/router';
+import { TruncatePipe } from '../../pipes/truncate-pipe';
+import { TmdbImagePipe } from '../../pipes/tmdb-image-pipe';
+import { StarsPipe } from '../../pipes/stars-pipe';
 
 @Component({
   selector: 'app-movie-card',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TruncatePipe, TmdbImagePipe, StarsPipe],
   templateUrl: './movie-card.html',
   styleUrls: ['./movie-card.scss']
+
 })
 export class MovieCard {
   // Entrada: datos que recibe del padre (signals)
